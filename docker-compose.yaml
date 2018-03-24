@@ -1,0 +1,47 @@
+version : '3.0'
+
+
+# Define the services and containers to be run
+#
+services:
+  todoapp1: #todo app of the container
+    image: meandocker_todoapp1
+    ports:
+      - "8081:8080"
+    links:
+     - database
+  todoapp2: #todo app of the container
+    image: meandocker_todoapp1
+    ports:
+      - "8082:8080"
+    links:
+     - database
+  todoapp3: #todo app of the container
+    image: meandocker_todoapp1
+    ports:
+      - "8083:8080"
+    links:
+     - database
+  database: # mongo container
+    image: mongo
+    ports:
+      - "27017:27017"
+  loadbalancer: # nginx container
+      image: meandocker_loadbalancer
+      ports:
+        - "80:80"
+      links:
+       - todoapp1
+       - todoapp2
+       - todoapp3
+   
+
+
+
+
+
+
+
+
+
+
